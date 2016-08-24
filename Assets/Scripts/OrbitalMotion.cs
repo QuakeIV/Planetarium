@@ -11,15 +11,11 @@ public class OrbitalMotion : MonoBehaviour
 	public Planet sun;
 
 	public List<Planet> planets = new List<Planet>();
-	private const double G = 0.03978874d;
-    private const double MIN_PLANET_MASS = 1.0d;
-    private const double MIN_MOON_MASS = 0.2d;
-    private const double MAX_PLANET_MASS = 400.0d;
 
     // Use this for initialization
     void Start() 
 	{
-        addSatellites(sun, MIN_PLANET_MASS, MAX_PLANET_MASS);
+        addSatellites(sun, Universe.MIN_PLANET_MASS, Universe.MAX_PLANET_MASS);
 	}
 
 	void addSatellites(Planet parentPlanet, double minMass, double maxMass)
@@ -55,7 +51,7 @@ public class OrbitalMotion : MonoBehaviour
 
 
                 //compute orbital velocity (should add some tolerances for ellipticalness)
-                double zvel = Mathd.Sqrt((G * parentPlanet.mass) / spawnPosition.magnitude);
+                double zvel = Mathd.Sqrt((Universe.G * parentPlanet.mass) / spawnPosition.magnitude);
 
                 //random values should be added to other components as well ideally, that way they wont all have aligned apoapsis and periapsis
                 satelliteBuffer.velocity += new Vector3d(0.0d, 0.0d, zvel);
@@ -64,7 +60,7 @@ public class OrbitalMotion : MonoBehaviour
 
                 usedRadius = (satelliteBuffer.soi + spawnDistance);
                 
-                addSatellites(satelliteBuffer, MIN_MOON_MASS, 0.3d * satelliteBuffer.mass);
+                addSatellites(satelliteBuffer, Universe.MIN_MOON_MASS, 0.3d * satelliteBuffer.mass);
 
                 x++;
 
@@ -87,7 +83,7 @@ public class OrbitalMotion : MonoBehaviour
             planetBuffer.mass = Random.Range((float)minMass, (float)maxMass);
 
             //define gravity parameter for somewhat cheaper gravity computations
-            planetBuffer.gravParam = planetBuffer.mass * G;
+            planetBuffer.gravParam = planetBuffer.mass * Universe.G;
 
             //set density
             planetBuffer.density = Random.Range((float)minDensity(planetBuffer.mass), (float)maxDensity(planetBuffer.mass));
