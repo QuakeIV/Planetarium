@@ -7,12 +7,11 @@ public class PlanetIndicator : MonoBehaviour
 	void Start () 
 	{
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-	
-	}	
+
+    public void Init(CelestialObj parent)
+    {
+
+    }
 
 	public void UpdateRadius (double radius)
 	{
