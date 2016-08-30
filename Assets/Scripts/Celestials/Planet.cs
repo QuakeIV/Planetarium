@@ -10,17 +10,21 @@ public abstract class Planet : CelestialOrbiter
 	public double debugAltitude;
 	public double debugGravity;
 
-    public override void Init(CelestialObj parent)
-    {
-        base.Init(parent);
-    }
-
     void FixedUpdate()
     {
         UpdatePosition(Time.fixedDeltaTime);
         debugVelocity = velocity.magnitude;
         debugAltitude = position.magnitude;
         debugGravity = getParentGravity(position).magnitude;
+    }
+
+    public static Planet NewPlanet(CelestialObj parent)
+    {
+        if(Random.value > 0.0f)
+        {
+            return Terrestrial.Init(parent);
+        }
+        return GasGiant.Init(parent);
     }
     
     public abstract void UpdateAtmo(double pressure);

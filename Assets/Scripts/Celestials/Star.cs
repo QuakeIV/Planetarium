@@ -6,7 +6,7 @@ public class Star : CelestialOrbiter
 {
     public double density;
 
-    public override void Init(CelestialObj parent)
+    public void Init(CelestialObj parent)
     {
         throw new NotImplementedException();
     }

@@ -6,16 +6,6 @@ public abstract class CelestialOrbiter : CelestialObj
     //if you are an orbiting object, then you have a 'parent' that is pulling you
     public CelestialObj parent;
 
-    public override void Init(CelestialObj parent)
-    {
-        TrailRenderer trail = gameObject.AddComponent<TrailRenderer>();
-        trail.time = 3600;
-        trail.startWidth = 20;
-        trail.endWidth = 10;
-        Material trailcolor = trail.material;
-        trailcolor.SetColor("_Color", new Color(255.0f, 0.0f, 0.0f));
-    }
-
     //all planets and stars are meant to calculate their sphere of influence in the same way
     public override void UpdateSOI()
     {
@@ -74,6 +64,27 @@ public abstract class CelestialOrbiter : CelestialObj
         transform.localPosition = (Vector3)position;
     }
     
+
+    //invoke this to add a pretty trail to visualize movement
+    public void addTrail()
+    {
+        addTrail(new Color(255.0f, 0.0f, 0.0f));
+    }
+
+    public void addTrail(Color clr)
+    {
+        if(gameObject.GetComponent<TrailRenderer>() == null)
+        {
+            TrailRenderer trail = gameObject.AddComponent<TrailRenderer>();
+            trail.time = 3600;
+            trail.startWidth = 20;
+            trail.endWidth = 10;
+            Material trailcolor = trail.material;
+            trailcolor.shader = Shader.Find("Unlit/Color");
+            trailcolor.SetColor("_Color", clr);
+            trail.material = trailcolor;
+        }
+    }
 
     //helpers
     protected Vector3d getParentGravity(Vector3d mPos)

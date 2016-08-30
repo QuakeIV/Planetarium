@@ -23,10 +23,7 @@ public class OrbitalMotion : MonoBehaviour
         //also this whole approach is a bit iffy
         int satelliteCount = Random.Range(2, 10);
 
-        GameObject newPlanet = new GameObject();
-        newPlanet.name = "Terrestrial";
-        Terrestrial planetBuffer = newPlanet.AddComponent<Terrestrial>();
-        planetBuffer.Init(parentObj);
+        Planet planetBuffer = Planet.NewPlanet(parentObj);
 
         //initial 'used radius', based off of how much room the parent Planet itself will take up (uses roche limit)
         double usedRadius = 1.26 * planetBuffer.radius * Mathd.Pow(parentObj.mass/planetBuffer.mass, 1.0d/3.0d);

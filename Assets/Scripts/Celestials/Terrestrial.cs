@@ -13,22 +13,26 @@ public class Terrestrial : Planet
         surfaceGravity = gravParam * 1000.0f / (radius * radius);
     }
 
-    public override void Init(CelestialObj parent)
+    public static Planet Init(CelestialObj parent)
     {
-        base.Init(parent);
+        GameObject obj = new GameObject();
+        obj.name = "Terrestrial";
 
-        transform.parent = parent.transform;
-        this.parent = parent;
+        obj.transform.parent = parent.transform;
 
-        type = Universe.CelestialType.Terrestrial;
+        Terrestrial planet = obj.AddComponent<Terrestrial>();
 
-        mass = Random.Range(MIN_MASS, MAX_MASS);
-        density = Random.Range((float)minDensity(mass), (float)maxDensity(mass));
+        planet.parent = parent;
 
-        gravParam = mass * Universe.G;
+        planet.type = Universe.CelestialType.Terrestrial;
 
-        UpdateRadius();
-        UpdateSOI();
+        planet.mass = Random.Range(MIN_MASS, MAX_MASS);
+        planet.density = Random.Range((float)planet.minDensity(planet.mass), (float)planet.maxDensity(planet.mass));
+
+        planet.gravParam = planet.mass * Universe.G;
+
+        planet.UpdateRadius();
+        planet.UpdateSOI();
 
         //set up atmosphere
         /*
@@ -40,8 +44,10 @@ public class Terrestrial : Planet
         */
 
         //set up visual representation
-        model = gameObject.AddComponent<CelestialIndicator>();
-        model.Init(this);
+        planet.model = obj.AddComponent<CelestialIndicator>();
+        planet.model.Init(planet);
+
+        planet.addTrail();
 
         //set up SOI indicator
         /*
@@ -49,6 +55,8 @@ public class Terrestrial : Planet
         GameObject indicator = ((GameObject)Instantiate(SOIIndRef));
         indicator.transform.localScale = new Vector3((float)(2.0d * planetBuffer.soi), (float)(2.0d * planetBuffer.soi), (float)(2.0d * planetBuffer.soi));
         indicator.transform.parent = planetBuffer.transform;*/
+
+        return planet;
     }
 
     public override void UpdateRadius()

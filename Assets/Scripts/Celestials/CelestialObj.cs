@@ -16,8 +16,6 @@ public abstract class CelestialObj : MonoBehaviour
     public abstract void UpdateSOI();
 
     public abstract void UpdateRadius();
-
-    public abstract void Init(CelestialObj parent);
     
     //SOI system is also meant to be used to decide which object spacecraft are child-ed to for purposes of patched conic 
     //no longer using only the transform to manage position and velocity, this will need modification to bring back into service

@@ -4,9 +4,9 @@ using System;
 
 public class GasGiant : Planet
 {
-    public override void Init(CelestialObj parent)
+    public static Planet Init(CelestialObj parent)
     {
-        throw new NotImplementedException();
+        return null;
     }
 
     public override void UpdateAtmo(double pressure)
