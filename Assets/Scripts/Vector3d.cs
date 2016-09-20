@@ -2,7 +2,6 @@
 // Assembly: UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 // Assembly location: C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEngine.dll
 using System;
-using System.Runtime.CompilerServices;
 
 namespace UnityEngine {
 	public struct Vector3d {
@@ -130,9 +129,16 @@ namespace UnityEngine {
 			this.x = (double)v3.x;
 			this.y = (double)v3.y;
 			this.z = (double)v3.z;
-		}
-		
-		public Vector3d(double x, double y) {
+        }
+
+        public Vector3d(Vector3d v3)
+        {
+            this.x = v3.x;
+            this.y = v3.y;
+            this.z = v3.z;
+        }
+
+        public Vector3d(double x, double y) {
 			this.x = x;
 			this.y = y;
 			this.z = 0d;
